@@ -1,6 +1,6 @@
 ## How to clone project
 Hello world
-- git clone https://github.com/Long-Soeng168/roles-permissions.git
+- git clone https://github.com/Long-Soeng168/pos-tomato.git
 - composer install
 - cp .env.example .env
 - php artisan key:generate
