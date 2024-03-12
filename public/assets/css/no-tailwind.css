@@ -138,7 +138,7 @@
     white-space: pre-wrap;
 
   }
-  .no-tailwind table td, table th,table tr {
+  .no-tailwind table td, .no-tailwind table th,.no-tailwind table tr {
       background-color: transparent !important;
       border-left: 4px solid #e6e9ec !important;
       border-bottom: 4px solid #e6e9ec !important;
