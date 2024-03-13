@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -22,6 +23,7 @@ Route::group([
     'prefix' => 'admin',
 ], function() {
     Route::resource('items', ItemController::class );
+    Route::resource('categories', CategoryController::class );
 });
 
 /*
