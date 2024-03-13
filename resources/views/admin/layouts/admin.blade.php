@@ -16,10 +16,12 @@
     <script src="{{ asset('assets/js/tailwindcss3.4.js') }}"></script>
     <script src="{{ asset('assets/js/tailwindConfig.js') }}"></script>
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
-    <script src="{{ asset('assets/js/darkMode.js') }}"></script>
+    <script defer src="{{ asset('assets/js/darkMode.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
 
 </head>
 
@@ -198,7 +200,7 @@
                                 </svg>
                                 <div class="text-sm text-gray-900 dark:text-white">Sales</div>
                             </a>
-                            <a href="#" class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                            <a href="{{ route('admin.users.index') }}" class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                 <svg aria-hidden="true" class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
                                 </svg>
@@ -334,19 +336,25 @@
                 </form>
                 <ul class="space-y-2">
                     <li>
-                        <x-sidebar-item href="{{ route('items.index') }}">
+                        <x-sidebar-item href="{{ route('admin.dashboard.index') }}"
+                            class="{{ request()->is('admin/dashboard*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
                             <span class="ml-3">Dashboard</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('items.index') }}">
+                        <x-sidebar-item href="{{ route('admin.users.index') }}"
+                            class="{{ request()->is('admin/users*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                             <span class="ml-3">Users</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('items.index') }}">
+                        <x-sidebar-item href="{{ route('admin.customers.index') }}"
+                        class="{{ request()->is('admin/customers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-contact"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"/><rect width="18" height="18" x="3" y="4" rx="2"/><circle cx="12" cy="10" r="2"/><line x1="8" x2="8" y1="2" y2="4"/><line x1="16" x2="16" y1="2" y2="4"/></svg>
                             <span class="ml-3">Customers</span>
                         </x-sidebar-item>
@@ -356,20 +364,31 @@
                 </ul>
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
-                        <x-sidebar-item href="{{ route('items.index') }}">
+                        <x-sidebar-item href="{{ route('admin.items.index') }}"
+                        class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><path d="M14 4h7"/><path d="M14 9h7"/><path d="M14 15h7"/><path d="M14 20h7"/></svg>
                             <span class="ml-3">Items</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('categories.index') }}" class="{{ request()->is('admin/categories*') ? 'bg-slate-300 dark:bg-slate-500' : '' }}"
-                            >
+                        <x-sidebar-item href="{{ route('admin.categories.index') }}"
+                            class="{{ request()->is('admin/categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-3"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></svg>
                             <span class="ml-3">Categories</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('items.index') }}">
+                        <x-sidebar-item href="{{ route('admin.types.index') }}"
+                            class="{{ request()->is('admin/types*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                            <span class="ml-3">Types</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-minus"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14h6"/></svg>
                             <span class="ml-3">Reports</span>
                         </x-sidebar-item>
@@ -377,7 +396,9 @@
                 </ul>
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
-                        <x-sidebar-item href="{{ route('items.index') }}">
+                        <x-sidebar-item href="{{ route('admin.settings.index') }}"
+                            class="{{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                             <span class="ml-3">Settings</span>
                         </x-sidebar-item>
@@ -514,7 +535,6 @@
     </div>
 
     <script src="{{ asset('assets/js/flowbite2.3.js') }}"></script>
-    <script src="{{ asset('assets/js/darkMode.js') }}"></script>
     <script src="{{ asset('/assets/ckeditor/ckeditor4/ckeditor.js') }}"></script>
     <script>
         var options = {

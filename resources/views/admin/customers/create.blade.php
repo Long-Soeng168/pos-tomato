@@ -2,45 +2,52 @@
 
 @section('content')
 <div class="p-4">
-    <x-form-header :value="__('Create Item')" class="p-4"/>
-
+    <x-form-header :value="__('Create User')" />
     <form class="w-full">
         <div class="grid md:grid-cols-2 md:gap-6">
             <!-- Name Address -->
             <div>
-                <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus placeholder="Item Name" />
+                <x-input-label for="name" :value="__('Name')" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
+
+            <!-- Email Address -->
             <div>
-                <x-input-label for="code" :value="__('Code or Barcode')" />
-                <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required autofocus placeholder="Item Code" />
-                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                <x-input-label for="email" :value="__('Email')" />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 md:gap-6 pt-4">
+            {{-- Password --}}
+            <div>
+                <x-input-label for="password" :value="__('Password')" />
+
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+
+                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+
+                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
         </div>
 
         <div class="grid md:grid-cols-3 md:gap-6 mt-4">
             <!-- Name Address -->
             <div>
-                <x-input-label for="price" :value="__('Price')" />
-                <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required autofocus placeholder="Price" />
-                <x-input-error :messages="$errors->get('price')" class="mt-2" />
-            </div>
-            <div>
-                <x-input-label for="size" :value="__('Size')" />
+                <x-input-label for="size" :value="__('Phone')" />
                 <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required autofocus placeholder="Size" />
                 <x-input-error :messages="$errors->get('size')" class="mt-2" />
             </div>
-            <div>
-                <x-input-label for="discount" :value="__('Discount % ')" />
-                <x-text-input id="discount" class="block mt-1 w-full" type="number" name="discount" :value="old('discount')" required autofocus placeholder="Discount" />
-                <x-input-error :messages="$errors->get('discount')" class="mt-2" />
-            </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 md:gap-6 mt-4">
             <div class="relative z-0 w-full mb-5 group">
-                <x-input-label for="categories" :value="__('Categories')" />
+                <x-input-label for="categories" :value="__('Gender')" />
                 <x-select-option id="categories">
                     <option>United States</option>
                     <option>Canada</option>
@@ -48,18 +55,14 @@
                     <option>Germany</option>
                 </x-select-option>
             </div>
-            <div class="relative z-0 w-full mb-5 group">
-                <x-input-label for="types" :value="__('Types')" />
-                <x-select-option id="types">
-                    <option>Khmer</option>
-                    <option>Canada</option>
-                    <option>France</option>
-                    <option>Germany</option>
-                </x-select-option>
+            <div>
+                <x-input-label for="discount" :value="__('Date Of Birth')" />
+                <x-text-input id="discount" class="block mt-1 w-full" type="date" name="discount" :value="old('discount')" required autofocus placeholder="Discount" />
+                <x-input-error :messages="$errors->get('discount')" class="mt-2" />
             </div>
         </div>
 
-        <div class="mb-5">
+        <div class="mb-6">
             <div class="flex items-center space-4">
                 <div class="max-w-40">
                     <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
@@ -69,11 +72,6 @@
                     <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
                 </div>
             </div>
-        </div>
-
-        <div class="mb-5">
-            <x-input-label for="details" :value="__('Details')" />
-            <textarea id="details" ></textarea>
         </div>
 
         <div>

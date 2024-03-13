@@ -2,26 +2,20 @@
 
 @section('content')
 <div class="p-4">
-    <x-form-header :value="__('Create Category')" />
+    <x-form-header :value="__('Create Type')" />
     <form class="w-full">
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid md:grid-cols-1 md:gap-6 mb-4">
             <!-- Name Address -->
             <div>
                 <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus placeholder="Item Name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
-            <div>
-                <x-input-label for="code" :value="__('Code or Barcode')" />
-                <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required autofocus placeholder="Item Code" />
-                <x-input-error :messages="$errors->get('code')" class="mt-2" />
-            </div>
         </div>
-
-        <div class="my-4 mb-6">
-            <div class="flex items-center space-4">
+        <div class="grid md:grid-cols-1 md:gap-6 mb-6">
+            <div>
                 <div class="max-w-40">
-                    <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full max-h-40 pr-4" />
+                    <img id="selected-image" src="#" alt="Selected Image" class="hidden max-w-full max-h-40 pb-2" />
                 </div>
                 <div class="flex-1">
                     <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
