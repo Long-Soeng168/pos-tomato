@@ -62,9 +62,9 @@
 
     <div class="flex items-center justify-end mt-4">
 
-        <x-primary-button class="ms-4">
+        <x-submit-button class="ms-4">
             {{ __('Create') }}
-        </x-primary-button>
+        </x-submit-button>
     </div>
 </form>
 

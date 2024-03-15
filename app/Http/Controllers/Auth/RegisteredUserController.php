@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -41,6 +42,21 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->assignRole('owner');
+
+        $createdShop = Shop::create([
+            'name' => $request->name . ' Shop',
+            'owner_user_id' => $user->id,
+            'description' => 'Your shop description'
+        ]);
+
+        if ($createdShop) {
+            // Update the user's shop_id
+            $user->update([
+                'shop_id' => $createdShop->id,
+            ]);
+        }
 
         event(new Registered($user));
 

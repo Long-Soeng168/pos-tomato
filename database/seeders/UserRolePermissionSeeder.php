@@ -40,6 +40,7 @@ class UserRolePermissionSeeder extends Seeder
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
+        $ownerRole = Role::create(['name' => 'owner']);
         $adminRole = Role::create(['name' => 'admin']);
         $staffRole = Role::create(['name' => 'staff']);
         $userRole = Role::create(['name' => 'user']);
@@ -56,6 +57,10 @@ class UserRolePermissionSeeder extends Seeder
         $adminRole->givePermissionTo(['create product', 'view product', 'update product']);
 
 
+        $ownerRole->givePermissionTo(['create user', 'view user', 'update user']);
+        $ownerRole->givePermissionTo(['create product', 'view product', 'update product']);
+
+
         // Let's Create User and assign Role to it.
 
         $superAdminUser = User::firstOrCreate([
@@ -67,7 +72,6 @@ class UserRolePermissionSeeder extends Seeder
                 ]);
 
         $superAdminUser->assignRole($superAdminRole);
-
 
         $adminUser = User::firstOrCreate([
                             'email' => 'admin@gmail.com'

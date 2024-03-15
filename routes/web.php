@@ -36,6 +36,11 @@ Route::group([
     Route::resource('types', TypeController::class );
 
     Route::resource('settings', SettingsController::class );
+
+
+    Route::get('addmore', function(){
+        dd('Add More Route Test Success');
+    })->name('addmore');
 });
 
 /*

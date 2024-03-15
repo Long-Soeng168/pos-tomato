@@ -33,6 +33,12 @@
                     <x-nav-link :href="route('slide-infinite-loop')" :active="request()->routeIs('slide-infinite-loop')">
                         {{ __('Slide Show') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('slide-infinite-loop')" :active="request()->routeIs('slide-infinite-loop')">
+                        {{ __('Image Compress') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.dashboard.index')" :active="request()->routeIs('admin.dashboard.index')">
+                        {{ __('Admin') }}
+                    </x-nav-link>
                 </div>
             </div>
 

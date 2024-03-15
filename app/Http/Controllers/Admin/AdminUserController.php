@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class AdminUserController extends Controller
@@ -14,7 +16,11 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::with('roles')->get();
+        // return $users;
+        return view('admin.users.index', [
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -22,8 +28,11 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.users.create');
+        $roles = Role::all();
+
+        return view('admin.users.create', [
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -31,7 +40,49 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $authUser = $request->user();
+        // return $authUser;
+        // dd($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed'],
+            'roles' => ['required'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $roles = $request->only('roles');
+
+        if($roles) {
+            $user->syncRoles($roles);
+        }
+
+        if($authUser->shop_id == null) {
+            $createdShop = Shop::create([
+                'name' => $request->name . ' Shop',
+                'owner_user_id' => $user->id,
+                'description' => 'Your shop description'
+            ]);
+
+            if ($createdShop) {
+                // Update the user's shop_id
+                $user->update([
+                    'shop_id' => $createdShop->id,
+                ]);
+            }
+        }else {
+            $user->update([
+                'shop_id' => $authUser->shop_id,
+            ]);
+        }
+
+
+        return redirect('/admin/users')->with('status', 'User created successfully');
     }
 
     /**
@@ -39,7 +90,7 @@ class AdminUserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        dd('view user', $id);
     }
 
     /**
@@ -47,7 +98,7 @@ class AdminUserController extends Controller
      */
     public function edit(string $id)
     {
-
+        dd('Edit user', $id);
         $user = User::findOrFail($id);
         $roles = Role::all();
         $userRoles = DB::table('model_has_roles')
@@ -75,6 +126,9 @@ class AdminUserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('status', 'Delete Successful!');
     }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
 
-            $table->bigInteger('company_id')->nullable();
+            $table->bigInteger('shop_id')->nullable();
             $table->string('phone')->nullable();
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();

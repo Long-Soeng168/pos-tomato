@@ -3,7 +3,8 @@
 @section('content')
 <div class="p-4">
     <x-form-header :value="__('Create User')" />
-    <form class="w-full">
+    <form class="w-full" action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="grid md:grid-cols-2 md:gap-6">
             <!-- Name Address -->
             <div>
@@ -40,25 +41,22 @@
         </div>
 
         <div class="grid md:grid-cols-3 md:gap-6 mt-4">
-            <!-- Name Address -->
             <div>
-                <x-input-label for="size" :value="__('Phone')" />
-                <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required autofocus placeholder="Size" />
-                <x-input-error :messages="$errors->get('size')" class="mt-2" />
+                <x-input-label for="phone" :value="__('Phone')" />
+                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')"  autofocus placeholder="Phone Number" />
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <x-input-label for="categories" :value="__('Gender')" />
-                <x-select-option id="categories">
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>France</option>
-                    <option>Germany</option>
+                <x-input-label for="genders" :value="__('Gender')" />
+                <x-select-option id="genders" name='gender'>
+                    <option>Male</option>
+                    <option>Female</option>
                 </x-select-option>
             </div>
             <div>
-                <x-input-label for="discount" :value="__('Date Of Birth')" />
-                <x-text-input id="discount" class="block mt-1 w-full" type="date" name="discount" :value="old('discount')" required autofocus placeholder="Discount" />
-                <x-input-error :messages="$errors->get('discount')" class="mt-2" />
+                <x-input-label for="date_of_birth" :value="__('Date Of Birth')" />
+                <x-text-input id="date_of_birth" class="block mt-1 w-full" type="date" name="date_of_birth" :value="old('date_of_birth')" autofocus />
+                <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
             </div>
         </div>
 
@@ -72,6 +70,28 @@
                     <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
                 </div>
             </div>
+        </div>
+
+        <div class="mt-4 mb-6">
+            <x-input-label for="password_confirmation" :value="__('Give Role')" />
+
+            <div class="grid grid-cols-4 gap-4">
+                @foreach ($roles as $role)
+                <div class="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="permission_{{ $role->id }}"
+                        name="roles[]"
+                        value="{{ $role->name }}"
+                        class="mr-2"
+                        {{-- {{ in_array($permission->id, $rolePermissions) ? "checked" : '' }} --}}
+                    >
+                    <label for="permission_{{ $role->id }}">{{ $role->name }}</label>
+                </div>
+
+                @endforeach
+            </div>
+            <x-input-error :messages="$errors->get('roles')" class="mt-2" />
         </div>
 
         <div>
