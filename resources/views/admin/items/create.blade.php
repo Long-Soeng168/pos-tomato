@@ -26,11 +26,11 @@
                 <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required autofocus placeholder="Price" />
                 <x-input-error :messages="$errors->get('price')" class="mt-2" />
             </div>
-            <div>
+            {{-- <div>
                 <x-input-label for="size" :value="__('Size')" />
                 <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required autofocus placeholder="Size" />
                 <x-input-error :messages="$errors->get('size')" class="mt-2" />
-            </div>
+            </div> --}}
             <div>
                 <x-input-label for="discount" :value="__('Discount % ')" />
                 <x-text-input id="discount" class="block mt-1 w-full" type="number" name="discount" :value="old('discount')" required autofocus placeholder="Discount" />

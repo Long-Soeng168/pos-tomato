@@ -15,4 +15,13 @@ class Shop extends Model
     {
         return $this->hasMany(User::class, 'shop_id', 'id');
     }
+
+    public function categories() {
+        return $this->hasMany(Category::class, 'shop_id', 'id');
+    }
+
+    public function types() {
+        return $this->hasMany(Type::class, 'shop_id', 'id');
+    }
+
 }

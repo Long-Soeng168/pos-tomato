@@ -54,6 +54,10 @@ class AdminUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'date_of_birth' => $request->date_of_birth,
+            'add_by_user_id' => $request->user()->id,
         ]);
 
         $roles = $request->only('roles');
