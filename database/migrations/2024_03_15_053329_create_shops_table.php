@@ -17,9 +17,9 @@ class CreateShopsTable extends Migration
             $table->text('description_kh')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->decimal('vat_percent', 5, 2)->default(0);
+            $table->decimal('vat_percent', 5, 2)->nullable()->default(0);
             $table->decimal('exchange_rate_riel', 10, 2)->default(4100);
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->timestamps();
         });
     }

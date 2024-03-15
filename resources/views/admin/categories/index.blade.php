@@ -93,7 +93,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
+                @forelse ($categories as $category)
                 <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <td class="w-4 px-4 py-3">
                         <div class="flex items-center">
@@ -135,7 +135,11 @@
                         </div>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                    <tr >
+                        <td class="px-4 py-4">No Category</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

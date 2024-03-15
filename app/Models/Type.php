@@ -15,4 +15,8 @@ class Type extends Model
         return $this->belongsTo(Shop::class, 'shop_id', 'id');
     }
 
+    public function items() {
+        return $this->hasMany(Item::class, 'type_id', 'id');
+    }
+
 }

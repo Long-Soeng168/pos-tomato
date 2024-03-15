@@ -543,7 +543,7 @@
             filebrowserBrowseUrl: '{{ asset("laravel-filemanager?type=Files")}}',
             filebrowserUploadUrl: '{{ asset("laravel-filemanager/upload?type=Files&_token=")}}'
         };
-        var areas = Array('details', 'description', 'description_khmer');
+        var areas = Array('details', 'description', 'description_kh');
         areas.forEach(function(area) {
             CKEDITOR.replace(area, options);
         });

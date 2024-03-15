@@ -24,4 +24,8 @@ class Shop extends Model
         return $this->hasMany(Type::class, 'shop_id', 'id');
     }
 
+    public function items() {
+        return $this->hasMany(Item::class, 'shop_id', 'id');
+    }
+
 }

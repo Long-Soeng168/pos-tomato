@@ -11,15 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('shop_id')->nullable();
             $table->unsignedBigInteger('create_by_user_id')->nullable();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('name_kh')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->decimal('discount_percent', 5, 2)->nullable()->default(0);
             $table->string('code')->nullable();
             $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->text('description_kh')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('type_id')->nullable();
             $table->tinyInteger('status')->nullable()->default(1);
 
             $table->timestamps();
@@ -31,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('items');
     }
 };

@@ -4,19 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class Item extends Model
 {
     use HasFactory;
-    protected $table = "categories";
+    protected $table = 'items';
     protected $guarded = [];
 
     public function shop() {
         return $this->belongsTo(Shop::class, 'shop_id', 'id');
     }
 
-    public function items() {
-        return $this->hasMany(Item::class, 'category_id', 'id');
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function type() {
+        return $this->belongsTo(Type::class, 'type_id', 'id');
     }
 }

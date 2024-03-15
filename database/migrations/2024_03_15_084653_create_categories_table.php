@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name_kh')->nullable();
             $table->string('code')->nullable();
             $table->string('image')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->nullable()->default(1);
 
             $table->timestamps();
         });

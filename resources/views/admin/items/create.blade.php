@@ -4,36 +4,42 @@
 <div class="p-4">
     <x-form-header :value="__('Create Item')" class="p-4"/>
 
-    <form class="w-full">
+    <form class="w-full" action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="grid md:grid-cols-2 md:gap-6">
             <!-- Name Address -->
             <div>
                 <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus placeholder="Item Name" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus placeholder="Name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="code" :value="__('Code or Barcode')" />
-                <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" required autofocus placeholder="Item Code" />
-                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                <x-input-label for="name_kh" :value="__('Name KH')" /><span class="text-red-500">*</span>
+                <x-text-input id="name_kh" class="block mt-1 w-full" type="text" name="name_kh" :value="old('name_kh')" required autofocus placeholder="Name in khmer" />
+                <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
         </div>
 
         <div class="grid md:grid-cols-3 md:gap-6 mt-4">
-            <!-- Name Address -->
+
+            <div>
+                <x-input-label for="code" :value="__('Code or Barcode')" />
+                <x-text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" placeholder="Code" />
+                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+            </div>
             <div>
                 <x-input-label for="price" :value="__('Price')" />
-                <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required autofocus placeholder="Price" />
+                <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" :value="old('price')" required placeholder="Price" />
                 <x-input-error :messages="$errors->get('price')" class="mt-2" />
             </div>
             {{-- <div>
                 <x-input-label for="size" :value="__('Size')" />
-                <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required autofocus placeholder="Size" />
+                <x-text-input id="size" class="block mt-1 w-full" type="text" name="size" :value="old('size')" required placeholder="Size" />
                 <x-input-error :messages="$errors->get('size')" class="mt-2" />
             </div> --}}
             <div>
                 <x-input-label for="discount" :value="__('Discount % ')" />
-                <x-text-input id="discount" class="block mt-1 w-full" type="number" name="discount" :value="old('discount')" required autofocus placeholder="Discount" />
+                <x-text-input id="discount" class="block mt-1 w-full" type="number" name="discount_percent" :value="old('discount')" placeholder="Discount" />
                 <x-input-error :messages="$errors->get('discount')" class="mt-2" />
             </div>
         </div>
@@ -41,21 +47,27 @@
         <div class="grid md:grid-cols-2 md:gap-6 mt-4">
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label for="categories" :value="__('Categories')" />
-                <x-select-option id="categories">
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>France</option>
-                    <option>Germany</option>
+                <x-select-option id="categories" name="category_id">
+                    <option>Select Category...</option>
+                    @forelse ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @empty
+                        <option> --No Category--</option>
+                    @endforelse
                 </x-select-option>
+                <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label for="types" :value="__('Types')" />
-                <x-select-option id="types">
-                    <option>Khmer</option>
-                    <option>Canada</option>
-                    <option>France</option>
-                    <option>Germany</option>
+                <x-select-option id="types" name="type_id">
+                    <option>Select Type...</option>
+                    @forelse ($types as $type)
+                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    @empty
+                        <option>--No Type--</option>
+                    @endforelse
                 </x-select-option>
+                <x-input-error :messages="$errors->get('type_id')" class="mt-2" />
             </div>
         </div>
 
@@ -66,14 +78,18 @@
                 </div>
                 <div class="flex-1">
                     <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
-                    <x-file-input id="dropzone-file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
+                    <x-file-input id="dropzone-file" type="file" name="image" accept="image/png, image/jpeg, image/gif" onchange="displaySelectedImage(event)" />
                 </div>
             </div>
         </div>
 
         <div class="mb-5">
-            <x-input-label for="details" :value="__('Details')" />
-            <textarea id="details" ></textarea>
+            <x-input-label for="description" :value="__('Description')" />
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <div class="mb-5">
+            <x-input-label for="description_kh" :value="__('Description KH')" />
+            <textarea id="description_kh" name="description_kh"></textarea>
         </div>
 
         <div>
