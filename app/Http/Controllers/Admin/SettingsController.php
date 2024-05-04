@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.settings.index');
+        $user = Auth::user();
+        $shopId = $user->shop_id;
+        $shop = Shop::find($shopId);
+        return view('admin.settings.index', [
+            'shop' => $shop,
+        ]);
     }
 
     /**
@@ -28,7 +34,7 @@ class SettingsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

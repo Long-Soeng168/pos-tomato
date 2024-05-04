@@ -111,10 +111,10 @@
                         <x-table-data value="{{ $item->name_kh }}"/>
                         <x-table-data value="{{ $item->code }}"/>
                         <x-table-data>
-                            <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $item->category->name }}</span>
+                            <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $item->category?->name }}</span>
                         </x-table-data>
                         <x-table-data>
-                            <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $item->type->name }}</span>
+                            <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{ $item->type?->name }}</span>
                         </x-table-data>
                         <x-table-data>
                             <div class="flex items-center text-red-600">
